@@ -1,0 +1,15 @@
+{
+  "name": "contao-plyr",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "cp -r node_modules/plyr/dist/* public/",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "plyr": "^3.7.8"
+  }
+}
