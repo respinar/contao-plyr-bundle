@@ -1,0 +1,26 @@
+{
+    "name": "respinar/contao-plyr",
+    "type": "contao-bundle",
+    "require": {
+        "php": "^8.0",
+        "contao/core-bundle": "^4.13 || ^5.2"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Hamid Peywasti",
+            "email": "hamid@respinar.com"
+        }
+    ],
+    "require-dev": {
+        "contao/manager-plugin": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Respinar\\ContaoPlyr\\": "src/"
+        }
+    },
+    "extra": {
+        "contao-manager-plugin": "Respinar\\ContaoPlyr\\ContaoManager\\Plugin"
+    }
+}
