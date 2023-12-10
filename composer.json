@@ -17,10 +17,10 @@
     },
     "autoload": {
         "psr-4": {
-            "Respinar\\ContaoPlyr\\": "src/"
+            "Respinar\\ContaoPlyrBundle\\": "src/"
         }
     },
     "extra": {
-        "contao-manager-plugin": "Respinar\\ContaoPlyr\\ContaoManager\\Plugin"
+        "contao-manager-plugin": "Respinar\\ContaoPlyrBundle\\ContaoManager\\Plugin"
     }
 }
