@@ -10,13 +10,13 @@ declare(strict_types=1);
  * @license MIT
  */
 
-namespace Respinar\ContaoPlyr\ContaoManager;
+namespace Respinar\ContaoPlyrBundle\ContaoManager;
 
 use Contao\ManagerPlugin\Bundle\BundlePluginInterface;
 use Contao\ManagerPlugin\Bundle\Config\BundleConfig;
 use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
 use Contao\CoreBundle\ContaoCoreBundle;
-use Respinar\ContaoPlyr\RespinarContaoPlyrBundle;
+use Respinar\ContaoPlyrBundle\RespinarContaoPlyrBundle;
 
 class Plugin implements BundlePluginInterface
 {
