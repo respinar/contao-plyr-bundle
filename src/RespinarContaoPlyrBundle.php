@@ -10,7 +10,7 @@ declare(strict_types=1);
  * @license MIT
  */
 
-namespace Respinar\ContaoPlyrBundle;
+namespace Respinar\ContaoPlyr;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
