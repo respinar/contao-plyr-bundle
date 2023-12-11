@@ -10,9 +10,9 @@ declare(strict_types=1);
  * @license MIT
  */
 
-namespace Respinar\ContaoPlyrBundle\Tests;
+namespace Respinar\ContaoPlyr\Tests;
 
-use Respinar\ContaoPlyrBundle\RespinarContaoPlyrBundle;
+use Respinar\ContaoPlyr\RespinarContaoPlyrBundle;
 use PHPUnit\Framework\TestCase;
 
 class RespinarContaoPlyrBundleTest extends TestCase
@@ -21,6 +21,6 @@ class RespinarContaoPlyrBundleTest extends TestCase
     {
         $bundle = new RespinarContaoPlyrBundle();
 
-        $this->assertInstanceOf('Respinar\ContaoPlyrBundle\RespinarContaoPlyrBundle', $bundle);
+        $this->assertInstanceOf('Respinar\ContaoPlyr\RespinarContaoPlyrBundle', $bundle);
     }
 }
