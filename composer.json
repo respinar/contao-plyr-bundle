@@ -17,7 +17,16 @@
     },
     "autoload": {
         "psr-4": {
-            "Respinar\\ContaoPlyr\\": "src/"
+            "Respinar\\ContaoPlyr\\": "src/",
+            "classmap": [
+                "contao/"
+            ],
+            "exclude-from-classmap": [
+                "contao/config/",
+                "contao/dca/",
+                "contao/languages/",
+                "contao/templates/"
+            ]
         }
     },
     "extra": {
