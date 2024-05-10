@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Respinar\ContaoPlyr\Controller\ContentElement;
+namespace Respinar\ContaoPlyrBundle\Controller\ContentElement;
 
 use Contao\ContentModel;
 use Contao\CoreBundle\Controller\ContentElement\AbstractContentElementController;
