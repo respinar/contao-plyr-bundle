@@ -30,6 +30,6 @@
         }
     },
     "extra": {
-        "contao-manager-plugin": "Respinar\\ContaoPlyr\\ContaoManager\\Plugin"
+        "contao-manager-plugin": "Respinar\\ContaoPlyrBundle\\ContaoManager\\Plugin"
     }
 }
