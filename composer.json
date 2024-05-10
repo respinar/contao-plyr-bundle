@@ -1,5 +1,5 @@
 {
-    "name": "respinar/contao-plyr",
+    "name": "respinar/contao-plyr-bundle",
     "type": "contao-bundle",
     "require": {
         "php": "^8.0",
