@@ -1,5 +1,7 @@
 {
     "name": "respinar/contao-plyr-bundle",
+    "description": "A Plyr bundle for Contao CMS",
+    "keywords": ["contao", "plyr", "video", "bundle"],
     "type": "contao-bundle",
     "require": {
         "php": "^8.0",
