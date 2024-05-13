@@ -5,4 +5,4 @@ services:
 
     Respinar\ContaoPlyrBundle\:
         resource: ../src/
-        exclude: ../src/DependencyInjection
+        exclude: ../src/ContaoManager/
