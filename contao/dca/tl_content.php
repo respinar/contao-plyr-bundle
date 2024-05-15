@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-$GLOBALS['TL_DCA']['tl_content']['palettes']['plyr'] = '
+use Respinar\ContaoPlyrBundle\Controller\ContentElement\PlyrController;
+
+$GLOBALS['TL_DCA']['tl_content']['palettes'][PlyrController::TYPE] = '
     {type_legend},type,headline;
     {source_legend},playerSRC;
     {player_legend},playerSize,playerOptions,playerStart,playerStop,playerCaption,playerPreload;
