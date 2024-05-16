@@ -1,0 +1,59 @@
+{# templates/content_element/plyr.html.twig #}
+{% use "@Contao/component/_headline.html.twig" %}
+
+{% block content %}
+    {% if as_editor_view %}
+        {% block editor_view %}
+            <ul>
+                {% for source_file in source_files %}
+                    <li>
+                        <span>{{ source_file.name }}</span>
+                        <span class="size">({{ source_file.fileSize|format_bytes }})</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endblock %}
+    {% endif %}
+{% endblock %}
+
+{% if not as_editor_view %}
+    {% block plyr %}
+        <div class="plyr {{ containerClass }}">
+            {% with {headline: headline|default(_context)|merge({attributes})} %}
+                {{ block('headline_component') }}
+            {% endwith %}
+            
+            <figure>
+                <{{ plyr.media.type }}{{ plyr.media.attributes }} id="player">
+                    {% for source_attributes in plyr.media.sources %}
+                        {% do csp_source('media-src', source_attributes.src) %}
+                        <source{{ source_attributes }}>
+                    {% endfor %}
+                    {% for track_attributes in plyr.media.tracks %}
+                        {% do csp_source('media-src', track_attributes.src) %}
+                        <track{{ track_attributes }}/>
+                    {% endfor %}
+                </{{ plyr.media.type }}>
+                {% if plyr.metadata.caption|default %}
+                    <figcaption>{{ plyr.metadata.caption }}</figcaption>
+                {% endif %}          
+            </figure>
+                
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    const player = new Plyr('#player');
+                });
+            </script>
+        </div>
+    {% endblock %}
+
+    {# Add metadata #}
+    {% block metadata %}
+        {% for source_file in source_files %}
+            {% do add_schema_org(source_file.schemaOrgData|default) %}
+        {% endfor %}
+    {% endblock %}
+
+{% endif %}
+
+
