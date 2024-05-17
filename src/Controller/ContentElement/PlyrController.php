@@ -26,7 +26,19 @@ use Symfony\Component\HttpFoundation\Response;
 #[AsContentElement(category: 'media')]
 class PlyrController extends AbstractContentElementController
 {
-    protected function getResponse(Template $template, ContentModel $model, Request $request): Response
+
+    public const TYPE = 'plyr';
+
+    /**
+     * @var array<string, UriInterface>
+     */
+    private array $publicUriByStoragePath = [];
+
+    public function __construct(private readonly VirtualFilesystem $filesStorage)
+    {
+    }
+
+    protected function getResponse(FragmentTemplate $template, ContentModel $model, Request $request): Response
     {
         return $template->getResponse();
     }
