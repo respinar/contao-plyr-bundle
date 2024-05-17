@@ -40,6 +40,31 @@ class PlyrController extends AbstractContentElementController
 
     protected function getResponse(FragmentTemplate $template, ContentModel $model, Request $request): Response
     {
+
+        // Find and order source files
+        $filesystemItems = FilesystemUtil::listContentsFromSerialized($this->filesStorage, $model->playerSRC ?: '');
+
+        if (!$sourceFiles = $this->getSourceFiles($filesystemItems)) {
+            return new Response();
+        }
+
+        $template->set('source_files', $sourceFiles);
+
+        if($this->isBackendScope($request)) {
+            return $template->getResponse();
+        }
+        
+        // Compile data
+        $plyrData = $filesystemItems->first()?->isVideo() ?? false
+            ? $this->buildVideoMediaData($model, $sourceFiles)
+            : $this->buildAudioMediaData($model, $sourceFiles);        
+
+        $template->set('plyr', (object) $plyrData);  
+
+        // Add JavaScript file to the page
+        $GLOBALS['TL_CSS'][] = 'bundles/respinarcontaoplyr/plyr.css|static';
+        $GLOBALS['TL_JAVASCRIPT'][] = 'bundles/respinarcontaoplyr/plyr.min.js|static';        
+
         return $template->getResponse();
     }
 
