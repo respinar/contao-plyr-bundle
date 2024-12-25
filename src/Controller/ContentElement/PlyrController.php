@@ -15,8 +15,6 @@ use Contao\CoreBundle\Filesystem\SortMode;
 use Contao\CoreBundle\Filesystem\VirtualFilesystem;
 use Contao\CoreBundle\String\HtmlAttributes;
 use Contao\CoreBundle\Twig\FragmentTemplate;
-use Contao\CoreBundle\Util\LocaleUtil;
-use Contao\File;
 use Contao\FilesModel;
 use Contao\StringUtil;
 use Contao\System;
