@@ -255,5 +255,99 @@ class PlyrController extends AbstractContentElementController
         
         return null; // No resolution found
     }
+
+
+    /**
+     * Generates schema.org structured data for the media content
+     * 
+     * @param ContentModel $model
+     * @param array $sourceFiles
+     * @return array|null
+     */
+    private function buildSchemaData(ContentModel $model, array $sourceFiles): ?array
+    {
+        if (empty($sourceFiles)) {
+            return null;
+        }
+
+        $isVideo = $sourceFiles[0]->isVideo();
+        $schemaType = $isVideo ? 'VideoObject' : 'AudioObject';
+        $firstFile = $sourceFiles[0];
+        $metadata = $firstFile->getExtraMetadata();
+        $localizedMetadata = $metadata->getLocalized()?->getDefault();
+
+        // Basic schema structure
+        $schema = [
+            '@type' => $schemaType,
+            'name' => $localizedMetadata?->getTitle() ?? $model->playerCaption ?? '',
+            'description' => $localizedMetadata?->getAlt() ?? $localizedMetadata?->getCaption() ?? '',
+            'contentUrl' => (string) $this->publicUriByStoragePath[$firstFile->getPath()],
+            'uploadDate' => date('c', $firstFile->getLastModified()),
+        ];
+
+        // Add video-specific properties
+        if ($isVideo) {
+            if ($poster = $this->getPosterPath($model)) {
+                $schema['thumbnailUrl'] = $poster;
+            }
+
+            $size = StringUtil::deserialize($model->playerSize, true);
+            if (!empty($size[0]) && !empty($size[1])) {
+                $schema['width'] = [
+                    '@type' => 'QuantitativeValue',
+                    'value' => $size[0],
+                    'unitCode' => 'PX'
+                ];
+                $schema['height'] = [
+                    '@type' => 'QuantitativeValue',
+                    'value' => $size[1],
+                    'unitCode' => 'PX'
+                ];
+            }
+        }
+
+        // Add captions if available
+        if (!empty($model->textTrackSRC)) {
+            $trackItems = FilesystemUtil::listContentsFromSerialized($this->filesStorage, $model->textTrackSRC);
+            $captions = [];
+            
+            foreach ($trackItems as $trackItem) {
+                if ($publicUri = $this->filesStorage->generatePublicUri($trackItem->getPath())) {
+                    $trackMetadata = $trackItem->getExtraMetadata();
+                    if ($textTrack = $trackMetadata->getTextTrack()) {
+                        $captions[] = [
+                            '@type' => 'MediaObject',
+                            'contentUrl' => (string)$publicUri,
+                            'inLanguage' => $textTrack->getSourceLanguage() ?? ''
+                        ];
+                    }
+                }
+            }
+            
+            if (!empty($captions)) {
+                $schema['caption'] = $captions;
+            }
+        }
+
+        return array_filter($schema);
+    }
+
+    /**
+     * Helper function to get poster path
+     * 
+     * @param ContentModel $model
+     * @return string|null
+     */
+    private function getPosterPath(ContentModel $model): ?string
+    {
+        if (!$uuid = $model->posterSRC) {
+            return null;
+        }
+
+        $filesModel = $this->getContaoAdapter(FilesModel::class);
+        $poster = $filesModel->findByUuid($uuid);
+        
+        return $poster?->path;
+    }
     
 }
