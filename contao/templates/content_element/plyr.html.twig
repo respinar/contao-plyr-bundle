@@ -49,9 +49,9 @@
 
     {# Add metadata #}
     {% block metadata %}
-        {% for source_file in source_files %}
-            {% do add_schema_org(source_file.schemaOrgData|default) %}
-        {% endfor %}
+        {% if schema is defined and schema is not empty %}
+            {% do add_schema_org(schema) %}
+        {% endif %}
     {% endblock %}
 
 {% endif %}
