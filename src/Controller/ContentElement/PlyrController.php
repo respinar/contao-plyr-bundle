@@ -57,7 +57,13 @@ class PlyrController extends AbstractContentElementController
             ? $this->buildVideoMediaData($model, $sourceFiles)
             : $this->buildAudioMediaData($model, $sourceFiles);        
 
-        $template->set('plyr', (object) $plyrData);  
+        $template->set('plyr', (object) $plyrData);
+
+        // Add schema data
+        $schemaData = $this->buildSchemaData($model, $sourceFiles);
+        if ($schemaData) {
+            $template->set('schema', $schemaData);
+        }
 
         // Add JavaScript file to the page
         $GLOBALS['TL_CSS'][] = 'bundles/respinarcontaoplyr/plyr.css|static';
