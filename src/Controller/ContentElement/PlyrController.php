@@ -349,11 +349,17 @@ class PlyrController extends AbstractContentElementController
         if (!$uuid = $model->posterSRC) {
             return null;
         }
-
+    
         $filesModel = $this->getContaoAdapter(FilesModel::class);
         $poster = $filesModel->findByUuid($uuid);
-        
-        return $poster?->path;
+    
+        if (!$poster || !$poster->path) {
+            return null;
+        }
+    
+        // Generate absolute URL and convert to string
+        $uri = $this->filesStorage->generatePublicUri($poster->path);
+        return $uri ? (string) $uri : null;
     }
     
 }
