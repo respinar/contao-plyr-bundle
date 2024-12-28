@@ -3,12 +3,12 @@
     <file source-language="en" target-language="de" datatype="plaintext" original="default">
         <body>
             <trans-unit id="CTE.plyr.0">
-                <source>Plyr Video</source>
-                <target>Plyr-Video</target>
+                <source>Plyr Video/audio</source>
+                <target>Plyr-Video/Audio</target>
             </trans-unit>
             <trans-unit id="CTE.plyr.1">
-                <source>Add a Plyr video player</source>
-                <target>Einen Plyr-Videoplayer hinzufügen</target>
+                <source>Add a Plyr video/audio player</source>
+                <target>Einen Plyr-Video/Audio player hinzufügen</target>
             </trans-unit>
         </body>
     </file>
