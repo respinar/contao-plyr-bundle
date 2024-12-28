@@ -3,10 +3,10 @@
     <file source-language="en" datatype="plaintext" original="default">
     <body>
       <trans-unit id="CTE.plyr.0">
-        <source>Plyr Video</source>
+        <source>Plyr Video/audio</source>
       </trans-unit>
       <trans-unit id="CTE.plyr.1">
-        <source>Add a Plyr video player</source>
+        <source>Add a Plyr video/audio player</source>
       </trans-unit>
     </body>
   </file>
