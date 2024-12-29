@@ -350,15 +350,18 @@ class PlyrController extends AbstractContentElementController
             return null;
         }
     
-        $filesModel = $this->getContaoAdapter(FilesModel::class);
-        $poster = $filesModel->findByUuid($uuid);
+        // Use FilesystemUtil to get the filesystem item from UUID
+        $filesystemItems = FilesystemUtil::listContentsFromSerialized($this->filesStorage, $uuid);
     
-        if (!$poster || !$poster->path) {
+        // Get the first (and should be only) item
+        $filesystemItem = $filesystemItems->first();
+    
+        if (!$filesystemItem) {
             return null;
         }
     
         // Generate absolute URL and convert to string
-        $uri = $this->filesStorage->generatePublicUri($poster->path);
+        $uri = $this->filesStorage->generatePublicUri($filesystemItem->getPath());
         return $uri ? (string) $uri : null;
     }
     
