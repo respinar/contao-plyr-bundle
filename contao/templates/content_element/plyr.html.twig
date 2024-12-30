@@ -24,7 +24,7 @@
             {% endwith %}
             
             <figure>
-                <{{ plyr.media.type }}{{ plyr.media.attributes }} id="player">
+                <{{ plyr.media.type }}{{ plyr.media.attributes }} id="{{ plyrId }}">
                     {% for source_attributes in plyr.media.sources %}
                         {% do csp_source('media-src', source_attributes.src) %}
                         <source{{ source_attributes }}>
@@ -44,7 +44,7 @@
     {% block script %}
         <script>
             document.addEventListener('DOMContentLoaded', () => {
-                const player = new Plyr('#player');
+                const player = new Plyr('#{{ plyrId }}');
             });
         </script>
     {% endblock %}
