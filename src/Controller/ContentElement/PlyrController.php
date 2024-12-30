@@ -59,6 +59,10 @@ class PlyrController extends AbstractContentElementController
 
         $template->set('plyr', (object) $plyrData);
 
+        // Generate unique player ID based on content element ID
+        $plyrId = 'plyr-' . $model->id;
+        $template->set('plyrId', $plyrId);
+
         // Add schema data
         $schemaData = $this->buildSchemaData($model, $sourceFiles);
         if ($schemaData) {
