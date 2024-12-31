@@ -1,5 +1,5 @@
-{# templates/content_element/plyr.html.twig #}
-{% use "@Contao/component/_headline.html.twig" %}
+{% extends "@Contao/content_element/_base.html.twig" %}
+{% use "@Contao/component/_figure.html.twig" %}
 
 {% block content %}
     {% if as_editor_view %}
@@ -13,49 +13,41 @@
                 {% endfor %}
             </ul>
         {% endblock %}
+    {% else %}
+        {{ block('figure_component') }}
     {% endif %}
 {% endblock %}
 
-{% if not as_editor_view %}
-    {% block plyr %}
-        <div class="plyr {{ containerClass }}">
-            {% with {headline: headline|default(_context)|merge({attributes})} %}
-                {{ block('headline_component') }}
-            {% endwith %}
-            
-            <figure>
-                <{{ plyr.media.type }}{{ plyr.media.attributes }} id="{{ plyrId }}">
-                    {% for source_attributes in plyr.media.sources %}
-                        {% do csp_source('media-src', source_attributes.src) %}
-                        <source{{ source_attributes }}>
-                    {% endfor %}
-                    {% for track_attributes in plyr.media.tracks %}
-                        {% do csp_source('media-src', track_attributes.src) %}
-                        <track{{ track_attributes }}/>
-                    {% endfor %}
-                </{{ plyr.media.type }}>
-                {% if plyr.metadata.caption|default %}
-                    <figcaption>{{ plyr.metadata.caption }}</figcaption>
-                {% endif %}          
-            </figure>
-        </div>
-    {% endblock %}
+{% block media %}
+    <{{ plyr.media.type }}{{ plyr.media.attributes }}>
+        {% for source_attributes in plyr.media.sources %}
+            {% do csp_source('media-src', source_attributes.src) %}
+            <source{{ source_attributes }}>
+        {% endfor %}
+        {% for track_attributes in plyr.media.tracks %}
+            {% do csp_source('media-src', track_attributes.src) %}
+            <track{{ track_attributes }}/>
+        {% endfor %}
+    </{{ plyr.media.type }}>
+    {% if plyr.metadata.caption|default %}
+        <figcaption>{{ plyr.metadata.caption }}</figcaption>
+    {% endif %}          
+{% endblock %}
 
-    {% block script %}
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                const player = new Plyr('#{{ plyrId }}');
-            });
-        </script>
-    {% endblock %}
+{% block script %}
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const player = new Plyr('#{{ plyr.media.attributes.id }}');
+        });
+    </script>
+{% endblock %}
 
-    {# Add metadata #}
-    {% block metadata %}
-        {% if schema is defined and schema is not empty %}
-            {% do add_schema_org(schema) %}
-        {% endif %}
-    {% endblock %}
+{# Add metadata #}
+{% block metadata %}
+    {% if schema is defined and schema is not empty %}
+        {% do add_schema_org(schema) %}
+    {% endif %}
+{% endblock %}
 
-{% endif %}
 
 
