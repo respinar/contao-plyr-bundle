@@ -96,6 +96,7 @@ class PlyrController extends AbstractContentElementController
         $size = StringUtil::deserialize($model->playerSize, true);
 
         $attributes = $this->parsePlayerOptions($model)
+            ->setIfExists('id', 'plyr-' . $model->id)
             ->setIfExists('poster', $poster?->path)
             ->setIfExists('width', $size[0] ?? null)
             ->setIfExists('height', $size[1] ?? null)
