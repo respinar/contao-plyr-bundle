@@ -60,7 +60,7 @@ class PlyrController extends AbstractContentElementController
         $template->set('plyr', (object) $plyrData);
 
         // Add schema data
-        $schemaData = $this->buildSchemaData($model, $sourceFiles);
+        $schemaData = $this->buildSchemaData($model, $sourceFiles[0]);     
         if ($schemaData) {
             $template->set('schema', $schemaData);
         }
