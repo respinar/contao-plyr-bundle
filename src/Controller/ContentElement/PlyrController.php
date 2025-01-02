@@ -268,19 +268,18 @@ class PlyrController extends AbstractContentElementController
      * Generates schema.org structured data for the media content
      * 
      * @param ContentModel $model
-     * @param array $sourceFiles
+     * @param $sourceFile
      * @return array|null
      */
-    private function buildSchemaData(ContentModel $model, array $sourceFiles): ?array
+    private function buildSchemaData(ContentModel $model, $sourceFile): ?array
     {
-        if (empty($sourceFiles)) {
+        if (empty($sourceFile)) {
             return null;
         }
 
-        $isVideo = $sourceFiles[0]->isVideo();
+        $isVideo = $sourceFile->isVideo();
         $schemaType = $isVideo ? 'VideoObject' : 'AudioObject';
-        $firstFile = $sourceFiles[0];
-        $metadata = $firstFile->getExtraMetadata();
+        $metadata = $sourceFile->getExtraMetadata();
         $localizedMetadata = $metadata->getLocalized()?->getDefault();
 
         // Basic schema structure
@@ -289,8 +288,8 @@ class PlyrController extends AbstractContentElementController
             'identifier' => '#/schema/file/' . $sourceFile->getUuid(),
             'name' => !empty($localizedMetadata?->getTitle()) ? $localizedMetadata->getTitle() : pathinfo($sourceFile->getName(), PATHINFO_FILENAME),
             'description' => !empty($localizedMetadata?->getAlt()) ? $localizedMetadata->getAlt() : $localizedMetadata?->getCaption() ?? '',
-            'contentUrl' => (string) $this->publicUriByStoragePath[$firstFile->getPath()],
-            'uploadDate' => date('c', $firstFile->getLastModified()),
+            'contentUrl' => (string) $this->publicUriByStoragePath[$sourceFile->getPath()],
+            'uploadDate' => date('c', $sourceFile->getLastModified()),
         ];
 
         // Add video-specific properties
