@@ -286,7 +286,8 @@ class PlyrController extends AbstractContentElementController
         // Basic schema structure
         $schema = [
             '@type' => $schemaType,
-            'name' => !empty($localizedMetadata?->getTitle()) ? $localizedMetadata->getTitle() : pathinfo($firstFile->getName(), PATHINFO_FILENAME),
+            'identifier' => '#/schema/file/' . $sourceFile->getUuid(),
+            'name' => !empty($localizedMetadata?->getTitle()) ? $localizedMetadata->getTitle() : pathinfo($sourceFile->getName(), PATHINFO_FILENAME),
             'description' => !empty($localizedMetadata?->getAlt()) ? $localizedMetadata->getAlt() : $localizedMetadata?->getCaption() ?? '',
             'contentUrl' => (string) $this->publicUriByStoragePath[$firstFile->getPath()],
             'uploadDate' => date('c', $firstFile->getLastModified()),
